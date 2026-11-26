@@ -6,7 +6,7 @@
 
 ## Información del proyecto
 
-- **Estudiante:** [ESCRIBE TU NOMBRE COMPLETO]
+- **Estudiante:** [Nicole Camila Abril Reyes]
 - **Variante:** 1 – Parqueadero
 - **Nombre de la aplicación:** ParkLibre
 - **Patrón de diseño:** Factory Method
