@@ -1,5 +1,29 @@
 package co.edu.unilibre.parklibre.modelo;
 
-public class Moto {
-    
+import co.edu.unilibre.parklibre.excepciones.*;
+import java.time.LocalDateTime;
+
+public class Moto extends Vehiculo implements Lavable {
+    private static final long TARIFA_HORA = 1500;
+    private static final long TOPE_DIA = 12000;
+
+    public Moto(String identificador, String propietario, LocalDateTime ingreso,
+                LocalDateTime salida, boolean lavado)
+            throws IdentificadorInvalidoException, SalidaInvalidaException {
+        super(identificador, propietario, ingreso, salida, lavado);
+    }
+
+    @Override public String getTipo() { return "MOTO"; }
+    @Override protected boolean validarIdentificador(String id) {
+        return id.matches("[A-Z]{3}[0-9]{2}[A-Z]");
+    }
+    @Override protected long calcularTarifa(LocalDateTime fin) {
+        long minutos = java.time.Duration.between(getIngreso(), fin).toMinutes();
+        long bloques24 = minutos / (24 * 60);
+        long resto = minutos % (24 * 60);
+        long horasResto = (resto + 59) / 60;
+        return bloques24 * TOPE_DIA + Math.min(horasResto * TARIFA_HORA, TOPE_DIA);
+    }
+    @Override public long calcularCostoLavado() { return 8000; }
+    @Override protected long costoLavado() { return calcularCostoLavado(); }
 }
